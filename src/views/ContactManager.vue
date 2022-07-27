@@ -25,20 +25,20 @@
       <div class="row">
         <div
           :id="contact.id"
-          class="card col-md-5 col-sm-12 m-1 list-group-item-primary custom-user-card"
+          class="card col-md-5 col-sm-12 m-2 list-group-item-primary custom-user-card shadow"
           v-for="(contact, idx) of contacts"
           :key="idx"
         >
           <div class="card-body">
             <div class="row">
-              <div class="col-lg-4 col-md-12 col-sm-12 my-1">
+              <div class="col-lg-3 col-md-12 col-sm-12 my-1">
                 <img
                   src="https://img.icons8.com/external-kmg-design-outline-color-kmg-design/344/external-profile-ui-essential-kmg-design-outline-color-kmg-design.png "
                   class="profile-img"
                   alt=""
                 />
               </div>
-              <div class="col-lg-7 col-md-12 col-sm-12 my-1">
+              <div class="col-lg-8 col-md-12 col-sm-12 my-1">
                 <input
                   type="hidden"
                   class="form-control"
@@ -48,13 +48,13 @@
                   value=""
                 />
                 <ul class="list-group">
-                  <li class="list-group-item">
+                  <li class="list-group-item text-wrap">
                     Name: <span class="fw-bold">{{ contact.name }}</span>
                   </li>
-                  <li class="list-group-item">
+                  <li class="list-group-item text-wrap">
                     Email: <span class="fw-bold">{{ contact.email }}</span>
                   </li>
-                  <li class="list-group-item">
+                  <li class="list-group-item text-wrap">
                     Mobile: <span class="fw-bold">{{ contact.mobile }}</span>
                   </li>
                 </ul>

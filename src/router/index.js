@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
-import Calendar from '@/components/Calendar'
 import ContactManager from '@/views/ContactManager'
 import ContactAdd from '@/views/ContactAdd'
 import ContactEdit from '@/views/ContactEdit'
@@ -18,11 +17,6 @@ export default new Router({
         return { path: '/contacts' }
       },
       component: Home
-    },
-    {
-      path: '/calendar',
-      name: 'Calendar',
-      component: Calendar
     },
     {
       path: '/contacts',
