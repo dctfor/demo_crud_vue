@@ -8,7 +8,7 @@ export default {
   components: {
     FullCalendar // make the <FullCalendar> tag available
   },
-  data() {
+  data () {
     return {
       calendarOptions: {
         plugins: [ dayGridPlugin, interactionPlugin ],
@@ -22,7 +22,7 @@ export default {
     }
   },
   methods: {
-    handleDateClick: function(arg) {
+    handleDateClick: function (arg) {
       alert('date click! ' + arg.dateStr)
     }
   }

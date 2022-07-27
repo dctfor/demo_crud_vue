@@ -1,5 +1,5 @@
-<template lang="html">
-  <div class="">
+<template lang='html'>
+  <div class=''>
     <p> {{mensaje}} </p>
   </div>
 </template>
@@ -8,25 +8,25 @@
 import axios from 'axios'
 export default {
   name: 'Main',
-  data(){
+  data () {
     return {
       mensaje: 'Nuevo mensaje desde Vue JS'
     }
   },
   methods: {
-    getMensaje(){
+    getMensaje () {
       const path = 'http://flask-ixa37fbfva-uc.a.run.app/api/v1/list'
       axios.get(path).then((respuesta) => {
-        this.mensaje = " asdasda " + respuesta.data + " asdasdasd "
+        this.mensaje = ' asdasda ' + respuesta.data + ' asdasdasd '
       })
     }
   },
-  created() {
+  created () {
     this.getMensaje()
-  },
+  }
 }
 </script>
 
-<style lang="css" scoped>
-  
+<style lang='css' scoped>
+
 </style>

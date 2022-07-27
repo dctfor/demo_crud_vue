@@ -15,7 +15,7 @@ export default new Router({
       path: '/',
       name: 'Home',
       redirect: to => {
-        return { path: '/contact' }
+        return { path: '/contacts' }
       },
       component: Home
     },
@@ -25,22 +25,22 @@ export default new Router({
       component: Calendar
     },
     {
-      path: '/contact',
+      path: '/contacts',
       name: 'ContactManager',
       component: ContactManager
     },
     {
-      path: '/contact/add',
+      path: '/contacts/add',
       name: 'ContactAdd',
       component: ContactAdd
     },
     {
-      path: '/contact/edit/:contactId',
+      path: '/contacts/edit/:contactId',
       name: 'ContactEdit',
       component: ContactEdit
     },
     {
-      path: '/contact/view/:contactId',
+      path: '/contacts/view/:contactId',
       name: 'ContactView',
       component: ContactView
     }
