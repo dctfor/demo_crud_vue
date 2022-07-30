@@ -5,6 +5,7 @@ import ContactManager from '@/views/ContactManager'
 import ContactAdd from '@/views/ContactAdd'
 import ContactEdit from '@/views/ContactEdit'
 import ContactView from '@/views/ContactView'
+import Error404 from '@/views/errors/404'
 
 Vue.use(Router)
 
@@ -37,7 +38,8 @@ export default new Router({
       path: '/contacts/view/:contactId',
       name: 'ContactView',
       component: ContactView
-    }
+    },
+    { path: "*", component: Error404 }
   ],
   mode: 'history'
 })

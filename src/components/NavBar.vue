@@ -1,18 +1,16 @@
 <template>
-    <nav class="navbar navbar-dark bg-primary navbar-expand-sm">
-        <div class="container">
-            <router-link to="/" class="navbar-brand"> 
-            <i class="fa fa-home" aria-hidden="true"></i> Vue Contact Manager
-            </router-link>
-        </div>
-    </nav>
+  <nav class="navbar navbar-dark bg-primary navbar-expand-sm">
+    <div class="container-fluid">
+      <router-link to="/" class="btn btn-light">
+        <i class="fa fa-home" aria-hidden="true"></i> Vue Contact Manager
+      </router-link>
+    </div>
+  </nav>
 </template>
 
-<<script>
+<script>
 export default {
-    name: "NavBar"
-}
+  name: 'NavBar'
+};
 </script>
-<style Scoped>
-    
-</style>
+<style Scoped></style>

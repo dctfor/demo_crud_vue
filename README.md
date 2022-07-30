@@ -1,8 +1,21 @@
-# frontend
+# Frontend CRUD in VUE
 
-> A Vue.js project
+> A Vue.js project intended for entering www.harbourshare.com, using bootstrap 4, a little of JQuery for the fade animation in the loading overlay and basically connected with a flask project that stores data in firebase, both projects are connected to google build and thus google run for quick deployment.
 
-## Build Setup
+This particular project was configured to have a sub domain of my own.
+
+Sorry for any mess in the code, hope you like this!
+
+# Related repo
+https://github.com/dctfor/demo_crud
+
+# ToDo
+
+* Add webWorkers for optimizing the UI Loading
+* Add better cache process
+* Add "Download Profile in PDF" button + functionality
+
+## Common Build Setup / Run Steps
 
 ``` bash
 # install dependencies
