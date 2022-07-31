@@ -63,7 +63,7 @@
             <div class="card-footer" style="display: inline">
               <router-link
                 :to="`/contacts/view/${contact.id}`"
-                class="btn btn-warning col-3"
+                class="btn btn-light col-3"
                 style="min-width: 20px"
                 :alt='"Button View Details of " + contact.name'
               >

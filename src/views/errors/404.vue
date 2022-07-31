@@ -423,6 +423,7 @@ button {
   padding: 0 60px;
   max-width: 680px;
   margin: auto;
+  color:#003478;
 }
 
 .error__nav {
@@ -438,7 +439,7 @@ button {
   width: 170px;
   display: inline-block;
   vertical-align: top;
-  border: 1px solid #212121;
+  border: 1px solid #00498e;
   padding-left: 10px;
   padding-right: 46px;
 }
@@ -461,8 +462,8 @@ button {
   display: inline-block;
   vertical-align: top;
   margin: 0 15px;
-  border: 1px solid #181828;
-  color: #181828;
+    border: 1px solid #5b5b6b;
+    color: #31c4c9;
   text-decoration: none;
   font-family: "Montserrat", sans-serif;
   text-transform: uppercase;
@@ -475,7 +476,7 @@ button {
 .e-nav__link:before {
   content: "";
   height: 200px;
-  background: #212121;
+  background: #003478;
   position: absolute;
   top: 70px;
   right: 70px;
@@ -494,7 +495,7 @@ button {
 }
 
 .e-nav__link:after {
-  content: "Home Page";
+  content: "Return Home";
 }
 
 .e-nav__link:hover:before {
@@ -503,11 +504,11 @@ button {
 }
 
 .e-nav__link:hover {
-  color: #fff;
+  color: rgb(54, 218, 255);
 }
 
 .e-nav__link:nth-child(2):hover:after {
-  color: #fff;
+  color: rgb(54, 218, 255);
 }
 /* 2.1. END Section Error */
 

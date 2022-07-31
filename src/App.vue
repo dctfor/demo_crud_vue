@@ -56,7 +56,7 @@ p {
 
 .a-s-box:hover {
   box-shadow: 0 0rem 0.5rem rgba(0, 0, 0, 0.35) !important;
-  background: #4444aa;
+  background: #a3d7bc;
 }
 
 .a-s-box:hover::after {
