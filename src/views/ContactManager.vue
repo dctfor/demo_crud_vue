@@ -2,21 +2,20 @@
   <div>
     <div class="container-fluid pt-4">
       <div class="row">
-        <div class="col">
-          <p class="h3 text-primary fw-bold">Contact Manager</p>
+        <div class="col text-center">
+          <p class="h3 text-primary fw-bold animate-da-text">Contacts Viewer Simplified v0.1.3a</p>
+          <!-- <button class="glow_btn"> Contacts Viewer Simplified v0.1.3a</button> -->
         </div>
         <div class="col" style="text-align: right">
-          <router-link to="/contacts/add" class="btn btn-primary btn-sm">
-            <i class="fa fa-plus-circle" aria-hidden="true"></i> Create contact
-          </router-link>
+          <!-- <router-link to="/contacts/add" class="learn-more">.</router-link> -->
+          <button class="learn-more"> Add Contact </button>
+          <button type="button" class="learn-more" data-toggle="modal" data-target="#exampleModal">About Me </button>
+          <button class="learn-more"> LogMeOut </button>
         </div>
       </div>
       <div class="row">
         <div class="col-12">
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
           </p>
         </div>
       </div>
@@ -29,10 +28,10 @@
           v-for="(contact, idx) of contacts"
           :key="idx"
         >
-          <div class="card h-100 list-group-item-primary a-s-box shadow">
+          <div class="card h-100 list-group-item-light a-s-box shadow">
             <div class="card-img-top pt-3">
               <img
-                src="./../assets/profile.webp"
+                src="@/assets/img/profile.webp"
                 class="profile-img"
                 height="100%"
                 width="100%"
@@ -90,13 +89,31 @@
         </div>
       </div>
     </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">About this simple <b>VUE.JS</b> project ...</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+                        <p>This is a simple CRUD example using VUE.JS 3 as Frontend, As a backend I use another Code Repo in Flask which stores data in FireBase, no secrets are shared in the repo, they are stored in "Google Secrets"</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 // import ContactService from './services/ContactService.js'
 import axios from 'axios'
-
+import $ from 'jquery'
 
 export default {
   name: 'ContactManager',

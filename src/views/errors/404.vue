@@ -12,7 +12,6 @@
     </div>
     <!--Dust particle end--->
 
-
     <div class="lamp__wrap">
       <div class="lamp">
         <div class="cable"></div>
@@ -43,21 +42,19 @@
 </template>
 
 <script>
+import $ from 'jquery'
+
 export default {
-  name: "error404",
-  mounted () {
+  name: 'error404',
+  mounted  () {
     $('#overlay').fadeOut(1000)
-    $("#app").css("background", "black");
+    $('#app').css('background', 'black')
   }
-};
+}
 </script>
 
 <style lang="css" scoped>
 @charset "UTF-8";
-/* FROM https://codepen.io/uiswarup/pen/XWdXGGV */
-/***********************************
-			/* 1. BODY */
-/***********************************/
 
 * {
   margin: 0;
@@ -363,13 +360,6 @@ button {
   zoom: 1;
 }
 
-/* 1. END BODY */
-/***********************************/
-
-/***********************************
-			/* 2. CONTENT */
-/***********************************/
-/* 2.1. Section error */
 .error {
   min-height: 100vh;
   position: relative;
@@ -637,14 +627,7 @@ button {
   z-index: 1;
   border-radius: 90px 90px 0px 0px;
 }
-/* 2.3. END Lamp */
-/***********************************
-			/* 2. END CONTENT */
-/***********************************/
 
-/***********************************
-			/* 3. RESPONSIVE */
-/***********************************/
 .error {
   overflow: hidden;
   max-height: 100vh;

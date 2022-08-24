@@ -46,9 +46,10 @@
           </div>
         </div>
         <div class="text-right">
-          <router-link to="/" class="btn btn-info">
+          <!-- <router-link to="/contacts" class="btn btn-info">
             <i class="fa fa-home" aria-hidden="true"></i> Return
-          </router-link>
+          </router-link> -->
+          <button class="learn-more">Return Home</button>
         </div>
       </div>
     </div>
@@ -57,7 +58,7 @@
 
 <script>
 import axios from 'axios'
-
+import $ from 'jquery'
 
 export default {
   name: 'ContactView',

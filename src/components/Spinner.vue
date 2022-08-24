@@ -1,5 +1,5 @@
 <template>
-  <div id="overlay">
+  <div id="overlay" v-if="isNotLogin">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -82,14 +82,23 @@
 
 <script>
 export default {
-  name: 'Spinner'
-};
+  name: 'Spinner',
+  computed: {
+    isNotLogin () {
+      return this.$route.name !== 'LoginForm'
+    }
+  },
+  beforeCreate () {
+    if (this.$router.currentRoute.path === '/') {
+    }
+  }
+}
 </script>
 
-<style lang=''>
+<style lang="">
 #overlay {
   display: flex;
-  align-content:center;
+  align-content: center;
   position: fixed;
   width: 100%;
   height: 100%;

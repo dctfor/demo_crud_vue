@@ -5,6 +5,7 @@ import ContactManager from '@/views/ContactManager'
 import ContactAdd from '@/views/ContactAdd'
 import ContactEdit from '@/views/ContactEdit'
 import ContactView from '@/views/ContactView'
+import LoginForm from '@/views/LoginForm'
 import Error404 from '@/views/errors/404'
 
 Vue.use(Router)
@@ -15,9 +16,14 @@ export default new Router({
       path: '/',
       name: 'Home',
       redirect: to => {
-        return { path: '/contacts' }
+        return { path: '/login' }
       },
       component: Home
+    },
+    {
+      path: '/login',
+      name: 'LoginForm',
+      component: LoginForm
     },
     {
       path: '/contacts',
@@ -39,7 +45,7 @@ export default new Router({
       name: 'ContactView',
       component: ContactView
     },
-    { path: "*", component: Error404 }
+    { path: '*', component: Error404 }
   ],
   mode: 'history'
 })

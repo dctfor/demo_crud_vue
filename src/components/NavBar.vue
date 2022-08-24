@@ -1,16 +1,22 @@
 <template>
-  <nav class="navbar navbar-dark bg-primary navbar-expand-sm">
+  <nav class="navbar navbar-dark bg-primary " v-if="isNotLogin">
     <div class="container-fluid">
-      <router-link to="/" class="btn btn-light">
-        <i class="fa fa-home" aria-hidden="true"></i> Vue Contact Manager
-      </router-link>
+      <!-- <router-link to="/contacts" class="btn btn-light">
+        <i class="fa fa-home" aria-hidden="true"></i> Return Home
+      </router-link> -->
+      <button class="learn-more">Return Home</button>
     </div>
   </nav>
 </template>
 
 <script>
 export default {
-  name: 'NavBar'
-};
+  name: 'NavBar',
+  computed: {
+    isNotLogin () {
+      return !['LoginForm', 'ContactManager'].includes(this.$route.name)
+    }
+  }
+}
 </script>
 <style Scoped></style>

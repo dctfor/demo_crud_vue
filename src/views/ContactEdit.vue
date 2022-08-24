@@ -83,12 +83,14 @@
               </select>
             </div>
             <div class="col-12 pt-2 text-right">
-              <router-link to="/" class="btn btn-info">
+              <!-- <router-link to="/contacts" class="btn btn-info">
                 <i class="fa fa-home" aria-hidden="true"></i> Return
               </router-link>
               <button type="submit" class="btn btn-success">
                 <i class="fas fa-save"></i> Save
-              </button>
+              </button> -->
+              <button class="learn-more">Return Home</button>
+              <button class="learn-more">Save</button>
             </div>
           </div>
         </form>
@@ -99,6 +101,7 @@
 
 <script>
 import axios from 'axios'
+import $ from 'jquery'
 
 export default {
   name: 'ContactView',
