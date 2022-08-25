@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import $ from 'jquery'
+
 export default {
   name: 'NavBar',
   computed: {
@@ -36,8 +38,11 @@ export default {
   },
   methods: {
     logout: function () {
-      localStorage['a_t'] = null
-      this.$router.push('/login')
+      const router = this.$router
+      $('#app').fadeOut(1000, function () {
+        localStorage['a_t'] = null
+        router.push('/login')
+      }).fadeIn(1000)
     }
   }
 }
