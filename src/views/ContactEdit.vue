@@ -125,13 +125,13 @@ export default {
     try {
       await axios
         .get(
-          'https://flask-ixa37fbfva-uc.a.run.app/api/v1/vue/contacts/' + this.contactId
+          this.$apiUrl + '/api/v1/vue/contacts/' + this.contactId
         )
         .then((response) => {
           this.contact = response.data
           axios
             .get(
-              'https://flask-ixa37fbfva-uc.a.run.app/api/v1/vue/departments/' +
+              this.$apiUrl + '/api/v1/vue/departments/' +
                 this.contact.departmentId
             )
             .then((response) => {
@@ -142,16 +142,18 @@ export default {
             })
         })
         .catch((e) => {
-          console.error(e)
+          console.error(e.response.data.error)
+          return this.$router.push('/login')
         })
 
       axios
-        .get('https://flask-ixa37fbfva-uc.a.run.app/api/v1/vue/departments')
+        .get(this.$apiUrl + '/api/v1/vue/departments')
         .then((response) => {
           this.departments = response.data
         })
         .catch((e) => {
-          console.error(e)
+          console.error(e.response.data.error)
+          return this.$router.push('/login')
         })
     } catch (error) {
       console.debug(`ContactService ${error}`)
@@ -165,7 +167,7 @@ export default {
         console.error(this.contact)
         axios
           .post(
-            'https://flask-ixa37fbfva-uc.a.run.app/api/v1/vue/contacts/update',
+            this.$apiUrl + '/api/v1/vue/contacts/update',
             this.contact
           )
           .then((response) => {

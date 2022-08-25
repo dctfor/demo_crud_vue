@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     getMensaje  () {
-      const path = 'http://flask-ixa37fbfva-uc.a.run.app/api/v1/list'
+      const path = this.$apiUrl + '/api/v1/list'
       axios.get(path).then((respuesta) => {
         this.mensaje = ' asdasda ' + respuesta.data + ' asdasdasd '
       })

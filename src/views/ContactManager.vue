@@ -1,16 +1,16 @@
 <template>
   <div>
-    <div class="container-fluid pt-4">
+    <!-- <div class="container-fluid pt-4">
       <div class="row">
         <div class="col text-center">
           <p class="h3 text-primary fw-bold animate-da-text">Contacts Viewer Simplified v0.1.3a</p>
-          <!-- <button class="glow_btn"> Contacts Viewer Simplified v0.1.3a</button> -->
+          <button class="glow_btn"> Contacts Viewer Simplified v0.1.3a</button>
         </div>
         <div class="col" style="text-align: right">
-          <!-- <router-link to="/contacts/add" class="learn-more">.</router-link> -->
-          <button class="learn-more"> Add Contact </button>
-          <button type="button" class="learn-more" data-toggle="modal" data-target="#exampleModal">About Me </button>
-          <button class="learn-more"> LogMeOut </button>
+          <router-link to="/contacts/add" class="btn btn-md btn-light">.</router-link>
+          <button class="btn btn-md btn-light"> Add Contact </button>
+          <button type="button" class="btn btn-md btn-light" data-toggle="modal" data-target="#exampleModal">About Me </button>
+          <button class="btn btn-md btn-light"> LogMeOut </button>
         </div>
       </div>
       <div class="row">
@@ -19,7 +19,7 @@
           </p>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="container-fluid p-4" v-if="contacts.length > 0">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
         <div
@@ -125,16 +125,22 @@ export default {
   mounted: async function () {
     $('#overlay').fadeIn(300)
     try {
+      const config = {
+        headers: {
+          Authorization: `JWT ${localStorage['a_t']}`,
+          Dummy: 'test'
+        }
+      }
       await axios
-        .get('https://flask-ixa37fbfva-uc.a.run.app/api/v1/vue/contacts')
+        .get(this.$apiUrl + '/api/v1/vue/contacts', config)
         .then((response) => {
           this.contacts = response.data
           this.contacts.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
           $('#overlay').fadeOut(300)
         })
         .catch((e) => {
-          console.error(e)
-          $('#overlay').fadeOut(300)
+          console.error(e.response.data.error)
+          return this.$router.push('/login')
         })
     } catch (error) {
       console.error(`ContactService ${error}`)
@@ -147,7 +153,7 @@ export default {
       try {
         axios
           .delete(
-            'https://flask-ixa37fbfva-uc.a.run.app/api/v1/vue/contacts/delete/' + id
+            this.$apiUrl + '/api/v1/vue/contacts/delete/' + id
           )
           .then((response) => {
             document.getElementById(id).remove()

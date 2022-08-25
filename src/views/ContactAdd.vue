@@ -122,7 +122,7 @@ export default {
     $('#overlay').fadeIn(300)
     try {
       await axios
-        .get('https://flask-ixa37fbfva-uc.a.run.app/api/v1/vue/departments')
+        .get(this.$apiUrl + '/api/v1/vue/departments')
         .then((response) => {
           this.departments = response.data
         })
@@ -141,7 +141,7 @@ export default {
         console.error(this.contact)
         axios
           .post(
-            'https://flask-ixa37fbfva-uc.a.run.app/api/v1/vue/contacts/add',
+            this.$apiUrl + '/api/v1/vue/contacts/add',
             this.contact
           )
           .then((response) => {

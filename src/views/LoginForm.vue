@@ -1,5 +1,4 @@
 <template id="login-form">
-  <div>
     <div class="container">
         <div class="login-wrapper">
             <div class="login-left">
@@ -15,27 +14,11 @@
                 <input v-model="user.password" type="password" id="password" placeholder="Password" required>
                 <label for="Password">Password</label>
             </div>
-            <!-- Pending to Add -->
-            <!-- <div class="checkbox-container">
-                <input type="checkbox" v-model="rememberMe">
-                <div class="text-checkbox">Remember me</div>
-            </div> -->
             <div class="button-area_lf">
                 <button class="btn_lf btn_lf-primary pull-right" @click="login()" >Login</button>
             </div>
             </form>
         </div>
-      </div>
-      <div style="display: none">
-        <div class="toast" id="clonemother">
-          <div class="toast-content">
-          <div class="before"></div>
-          <div class="icon">&#x2714;</div>
-          <div class="text"><p>Success</p><p class="message">You just entered a wrong User/Password</p></div>
-          <div onclick="deletethis()" class="close">&#x00D7;</div>
-          </div>
-        </div>
-      </div>
     </div>
 </template>
 
@@ -62,21 +45,24 @@ export default {
       init = 300
     }, init)
   },
+  mounted () {
+    $('#overlay').fadeOut(100)
+  },
   methods: {
     async login () {
       try {
         $('#overlay').fadeIn(300)
-             console.log(this.user)
         await axios
           .post(
-            'https://api.christianlopez.mx/auth',
+            // this.$apiUrl + '/auth',
+            this.$apiUrl + '/auth',
             this.user
           )
           .then((response) => {
-            console.log(response)
+            localStorage['a_t'] = response.data.access_token
+            return this.$router.push('/contacts')
           })
           .catch((e) => {
-           
             console.error(e)
             $('#overlay').fadeOut(300)
           })
@@ -123,7 +109,6 @@ input {
   font-size: 16px;
   color: #000;
   border-radius: 0;
-  border-botton: 0;
 }
 
 input[type="text"],
@@ -227,6 +212,18 @@ input:placeholder-shown + label {
 .open .login-left {
   -webkit-transform: translateX(-400px) translateZ(0);
   transform: translateX(-400px) translateZ(0);
+}
+
+@media (max-width: 600px) {
+
+  body {
+    background-size: contain;
+  }
+
+  .login-right {
+    width: 100% !important;
+  }
+
 }
 
 .login-right {

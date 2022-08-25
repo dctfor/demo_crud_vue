@@ -81,13 +81,13 @@ export default {
     try {
       await axios
         .get(
-          'https://flask-ixa37fbfva-uc.a.run.app/api/v1/vue/contacts/' + this.contactId
+          this.$apiUrl + '/api/v1/vue/contacts/' + this.contactId
         )
         .then((response) => {
           this.contact = response.data
           axios
             .get(
-              'https://flask-ixa37fbfva-uc.a.run.app/api/v1/vue/departments/' +
+              this.$apiUrl + '/api/v1/vue/departments/' +
                 this.contact.departmentId
             )
             .then((response) => {
