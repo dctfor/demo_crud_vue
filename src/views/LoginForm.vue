@@ -1,4 +1,5 @@
 <template id="login-form">
+  <div>
     <div class="container">
         <div class="login-wrapper">
             <div class="login-left">
@@ -7,11 +8,11 @@
             <form class="login-right" @submit.prevent>
             <div class="h2">Login</div>
             <div class="form-group">
-                <input type="text" id="username" placeholder="Username" v-model="username" required>
+                <input v-model="user.username" type="text" id="username" placeholder="Username" required>
                 <label for="username">Username</label>
             </div>
             <div class="form-group">
-                <input type="password" id="password" placeholder="Password" v-model="password" required>
+                <input v-model="user.password" type="password" id="password" placeholder="Password" required>
                 <label for="Password">Password</label>
             </div>
             <!-- Pending to Add -->
@@ -24,20 +25,34 @@
             </div>
             </form>
         </div>
+      </div>
+      <div style="display: none">
+        <div class="toast" id="clonemother">
+          <div class="toast-content">
+          <div class="before"></div>
+          <div class="icon">&#x2714;</div>
+          <div class="text"><p>Success</p><p class="message">You just entered a wrong User/Password</p></div>
+          <div onclick="deletethis()" class="close">&#x00D7;</div>
+          </div>
+        </div>
+      </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
 import $ from 'jquery'
 
 export default {
   name: 'LoginForm',
   template: '#login-form',
-  data () {
+  data: function () {
     return {
       rememberMe: false,
-      username: '',
-      password: ''
+      user: {
+        username: '',
+        password: ''
+      }
     }
   },
   beforeMount () {
@@ -48,9 +63,33 @@ export default {
     }, init)
   },
   methods: {
-    login () {
-      if($('#username').value == 'Harbour' & $('#password').value == 'Harbour')
-      this.$router.push({ name: 'ContactManager' })
+    async login () {
+      try {
+        $('#overlay').fadeIn(300)
+             console.log(this.user)
+        await axios
+          .post(
+            'https://api.christianlopez.mx/auth',
+            this.user
+          )
+          .then((response) => {
+            console.log(response)
+          })
+          .catch((e) => {
+           
+            console.error(e)
+            $('#overlay').fadeOut(300)
+          })
+      } catch (error) {
+        console.debug(`Error ? ${error}`)
+        $('#overlay').fadeOut(300)
+      }
+    },
+    deletethis () {
+      var e = window.event
+      var grand = e.target.parentNode.parentNode
+      grand.style.animation = 'toast .5s ease-out forwards'
+      setTimeout(() => { grand.remove() }, 500)
     }
   }
 }
@@ -117,15 +156,12 @@ label {
   opacity: 1;
   -webkit-transform: translateY(5px);
   transform: translateY(5px);
-  color: #aaa;
-  font-weight: 300;
-  font-size: 13px;
-  letter-spacing: -0.00933333em;
-  transition: all 0.2s ease-out;
+  color: #aaa0;
 }
 
 input:placeholder-shown + label {
   opacity: 0;
+  color: rgba(0,0,0,0);
   -webkit-transform: translateY(15px);
   transform: translateY(15px);
 }
