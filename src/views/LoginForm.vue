@@ -46,6 +46,7 @@ export default {
   },
   mounted () {
     $('#overlay').fadeOut(100)
+    localStorage['a_t'] = null
   },
   methods: {
     async login () {
@@ -59,7 +60,7 @@ export default {
           )
           .then((response) => {
             localStorage['a_t'] = response.data.access_token
-            return this.$router.push('/contacts')
+            console.log('jwt: '+localStorage['a_t'])
           })
           .catch((e) => {
             console.error(e)
@@ -69,6 +70,7 @@ export default {
         console.debug(`Error ? ${error}`)
         $('#overlay').fadeOut(300)
       }
+      return this.$router.push('/contacts')
     },
     deletethis () {
       var e = window.event

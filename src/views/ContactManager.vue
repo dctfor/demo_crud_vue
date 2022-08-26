@@ -153,11 +153,6 @@
 <script>
 import axios from 'axios'
 
-const config = {
-  headers: {
-    Authorization: `JWT ${localStorage['a_t']}`
-  }
-}
 export default {
   name: 'ContactManager',
   data: function () {
@@ -171,14 +166,19 @@ export default {
         title: '',
         departmentId: ''
       },
-      department: ''
+      department: '',
+      config: {
+        headers: {
+          Authorization: `JWT ${localStorage['a_t']}`
+        }
+      }
     }
   },
   mounted: async function () {
     $('#overlay').fadeIn(300)
     try {
       await axios
-        .get(this.$apiUrl + this.$apiRoute + 'contacts', config)
+        .get(this.$apiUrl + this.$apiRoute + 'contacts', this.config)
         .then((response) => {
           this.contacts = response.data
           this.contacts.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
@@ -186,6 +186,8 @@ export default {
         })
         .catch((e) => {
           console.error(e.response.data.error)
+          console.error('access token: ' + localStorage['a_t'])
+          localStorage['a_t'] = null
           return this.$router.push('/login')
         })
     } catch (error) {
@@ -227,14 +229,14 @@ export default {
         let miDepartment = document.getElementById('modalInfoDepartment')
         await axios
           .get(
-            this.$apiUrl + this.$apiRoute + 'contacts/' + id, config
+            this.$apiUrl + this.$apiRoute + 'contacts/' + id, this.config
           )
           .then((response) => {
             this.contact = response.data
             axios
               .get(
                 this.$apiUrl + this.$apiRoute + 'departments/' +
-                  this.contact.departmentId, config
+                  this.contact.departmentId, this.config
               )
               .then((response) => {
                 console.log(response.data.name)
