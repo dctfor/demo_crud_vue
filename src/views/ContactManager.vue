@@ -55,7 +55,7 @@
       </div>
     </div>
     <!-- ABOUT MODAL -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content mc-info">
           <div class="modal-header">
@@ -65,7 +65,7 @@
             </button>
           </div>
           <div class="modal-body">
-                        <p>This is a simple CRUD example using VUE.JS 3 as Frontend, As a backend I use another Code Repo in Flask which stores data in FireBase, no secrets are shared in the repo, they are stored in "Google Secrets"</p>
+                        <p>This is a simple CRUD example using VUE.JS 2 as Frontend, As a backend I use another Code Repo in Flask which stores data in FireBase, no secrets are shared in the repo, they are stored in "Google Secrets"</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

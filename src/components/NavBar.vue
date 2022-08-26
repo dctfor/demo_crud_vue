@@ -10,7 +10,7 @@
           <a class="nav-link" href="#">Contacts<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">About This</a>
+          <a class="nav-link" href="#" data-toggle="modal" data-target="#aboutModal">About This</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Pricing</a>
