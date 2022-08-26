@@ -61,15 +61,20 @@ p {
 }
 
 .mc-info {
-  box-shadow: 0 0 5rem rgb(52, 214, 255);
+  box-shadow: 0 0 2rem rgb(52, 214, 255);
+}
+
+.mc-success {
+  box-shadow: 0 0 2rem rgba(30, 255, 0, 0.5);
+
 }
 
 .mc-warning {
-  box-shadow: 0 0 5rem rgb(255, 167, 52);
+  box-shadow: 0 0 2rem rgb(255, 167, 52);
 }
 
 .c_f_btn,
-c_f_btn_delete {
+.c_f_btn_delete {
   -webkit-transition: all 0.3s ease-out;
   -moz-transition: all 0.3s ease-out;
   -o-transition: all 0.3s ease-out;

@@ -13,7 +13,7 @@
           <a class="nav-link" href="#" data-toggle="modal" data-target="#aboutModal">About This</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
+          <a class="nav-link" href="#" data-toggle="modal" data-target="#pricingModal">Pricing</a>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled" href="#">Disabled</a>

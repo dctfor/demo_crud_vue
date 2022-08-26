@@ -5,20 +5,15 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   name: 'Main',
   data  () {
     return {
-      mensaje: 'Nuevo mensaje desde Vue JS'
+      mensaje: ''
     }
   },
   methods: {
     getMensaje  () {
-      const path = this.$apiUrl + '/api/v1/list'
-      axios.get(path).then((respuesta) => {
-        this.mensaje = ' asdasda ' + respuesta.data + ' asdasdasd '
-      })
     }
   },
   created  () {

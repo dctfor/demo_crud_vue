@@ -44,7 +44,7 @@
                     type="button" @click="viewContact(contact.id)">Check
             </button>
             <button class="btn btn-theme w-100 c_f_btn"
-                    type="button">Edit
+                    type="button" @click="editContact(contact.id)">Edit
             </button>
             <button class="btn btn-theme w-100 c_f_btn_delete"
                     type="button" @click="confirmDelete(contact)">Delete
@@ -54,107 +54,19 @@
         </div>
       </div>
     </div>
-    <!-- ABOUT MODAL -->
-    <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content mc-info">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">About this simple <b>VUE.JS</b> project ...</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-                        <p>This is a simple CRUD example using VUE.JS 2 as Frontend, As a backend I use another Code Repo in Flask which stores data in FireBase, no secrets are shared in the repo, they are stored in "Google Secrets"</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- CHECK MODAL -->
-    <div class="modal fade" id="checkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content mc-info">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">View</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="input-group mb-2 mr-sm-2">
-              <div class="input-group-prepend">
-                <div class="input-group-text">Name</div>
-              </div>
-              <input type="text" class="form-control" id="modalInfoName" placeholder="Notice: Without Name" disabled>
-            </div>
-            <div class="input-group mb-2 mr-sm-2">
-              <div class="input-group-prepend">
-                <div class="input-group-text">Email</div>
-              </div>
-              <input type="text" class="form-control" id="modalInfoEmail" placeholder="Notice: Without Email" disabled>
-            </div>
-            <div class="input-group mb-2 mr-sm-2">
-              <div class="input-group-prepend">
-                <div class="input-group-text">Mobile</div>
-              </div>
-              <input type="text" class="form-control" id="modalInfoMobile" placeholder="Notice: Without Mobile" disabled>
-            </div>
-            <div class="input-group mb-2 mr-sm-2">
-              <div class="input-group-prepend">
-                <div class="input-group-text">Company</div>
-              </div>
-              <input type="text" class="form-control" id="modalInfoCompany" placeholder="Notice: Without Company" disabled>
-            </div>
-            <div class="input-group mb-2 mr-sm-2">
-              <div class="input-group-prepend">
-                <div class="input-group-text">Title</div>
-              </div>
-              <input type="text" class="form-control" id="modalInfoTitle" placeholder="Notice: Without Title" disabled>
-            </div>
-            <div class="input-group mb-2 mr-sm-2">
-              <div class="input-group-prepend">
-                <div class="input-group-text">Department</div>
-              </div>
-              <input type="text" class="form-control" id="modalInfoDepartment" placeholder="Notice: Without Department" disabled>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- DELETE MODAL -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content mc-warning">
-          <div class="modal-header">
-            <h5 class="modal-title" id="deleteModalLabel">Warning</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            You're about to delete the record of <span id="del_me"></span>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary w-100" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-danger w-100" id="btnCounter" disabled>Delete <span id="count"></span></button>
-          </div>
-        </div>
-      </div>
-    </div>
+
+    <MainModals @submitEdit="submitUpdate" />
+
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import MainModals from '@/components/MainModals'
 
 export default {
   name: 'ContactManager',
+  components: {MainModals},
   data: function () {
     return {
       contacts: [],
@@ -164,9 +76,10 @@ export default {
         mobile: '',
         company: '',
         title: '',
-        department: ''
+        department: '',
+        departmentId: ''
       },
-      department: '',
+      departments: [],
       config: {
         headers: {
           Authorization: `JWT ${localStorage['a_t']}`
@@ -174,7 +87,7 @@ export default {
       }
     }
   },
-  mounted: async function () {
+  beforeMount: async function () {
     $('#overlay').fadeIn(300)
     try {
       await axios
@@ -188,6 +101,15 @@ export default {
           console.error(e.response.data.error)
           console.error('access token: ' + localStorage['a_t'])
           localStorage['a_t'] = null
+          return this.$router.push('/login')
+        })
+      axios
+        .get(this.$apiUrl + this.$apiRoute + 'departments', this.config)
+        .then((response) => {
+          this.departments = response.data
+        })
+        .catch((e) => {
+          console.error(e.response.data.error)
           return this.$router.push('/login')
         })
     } catch (error) {
@@ -221,12 +143,6 @@ export default {
     viewContact: async function (id) {
       $('#overlay').fadeIn(300)
       try {
-        let miName = document.getElementById('modalInfoName')
-        let miEmail = document.getElementById('modalInfoEmail')
-        let miMobile = document.getElementById('modalInfoMobile')
-        let miCompany = document.getElementById('modalInfoCompany')
-        let miTitle = document.getElementById('modalInfoTitle')
-        let miDepartment = document.getElementById('modalInfoDepartment')
         await axios
           .get(
             this.$apiUrl + this.$apiRoute + 'contacts/' + id, this.config
@@ -238,14 +154,12 @@ export default {
             console.error(e)
             $('#overlay').fadeOut(300)
           })
-        console.log('contact:' + this.contact)
-        console.log('department:' + this.department)
-        miName.value = this.contact.name
-        miEmail.value = this.contact.email
-        miMobile.value = this.contact.mobile
-        miCompany.value = this.contact.company
-        miTitle.value = this.contact.title
-        miDepartment.value = this.contact.department
+        document.getElementById('modalInfoName').value = this.contact.name
+        document.getElementById('modalInfoEmail').value = this.contact.email
+        document.getElementById('modalInfoMobile').value = this.contact.mobile
+        document.getElementById('modalInfoCompany').value = this.contact.company
+        document.getElementById('modalInfoTitle').value = this.contact.title
+        document.getElementById('modalInfoDepartment').value = this.contact.department
         $('#overlay').fadeOut(300)
         $('#checkModal').modal('show')
       } catch (error) {
@@ -253,12 +167,82 @@ export default {
         $('#overlay').fadeOut(300)
       }
     },
+    editContact: async function (id) {
+      $('#overlay').fadeIn(300)
+      try {
+        // let miDepartment = document.getElementById('modalEditDepartment')
+        await axios
+          .get(
+            this.$apiUrl + this.$apiRoute + 'contacts/' + id, this.config
+          )
+          .then((response) => {
+            console.log(response.data)
+            this.contact = response.data
+          })
+          .catch((e) => {
+            console.error(e)
+            $('#overlay').fadeOut(300)
+          })
+        document.getElementById('modalEditName').value = this.contact.name
+        document.getElementById('modalEditEmail').value = this.contact.email
+        document.getElementById('modalEditMobile').value = this.contact.mobile
+        document.getElementById('modalEditCompany').value = this.contact.company
+        document.getElementById('modalEditTitle').value = this.contact.title
+        console.log(this.contact.deparmentId)
+        document.getElementById('modalEditDepartment').value = this.contact.departmentId
+        $('#overlay').fadeOut(300)
+        $('#editModal').modal('show')
+      } catch (error) {
+        console.debug(`ContactService ${error}`)
+        $('#overlay').fadeOut(300)
+      }
+    },
+    submitUpdate: async function () {
+      $('#overlay').fadeIn(300)
+      try {
+        this.contact.name = document.getElementById('modalEditName').value
+        this.contact.email = document.getElementById('modalEditEmail').value
+        this.contact.mobile = document.getElementById('modalEditMobile').value
+        this.contact.company = document.getElementById('modalEditCompany').value
+        this.contact.title = document.getElementById('modalEditTitle').value
+        this.contact.departmentId = document.getElementById('modalEditDepartment').value
+        await axios
+          .post(
+            this.$apiUrl + this.$apiRoute + 'contacts/update',
+            this.contact,
+            this.config
+          )
+          .then((response) => {
+            this.$toast.open({
+              message: 'Contact ' + this.contact.name + ' updated',
+              type: 'success',
+              position: 'top-right',
+              dismissible: true,
+              duration: 5000
+            })
+          })
+          .catch((e) => {
+            this.$toast.open({
+              message: 'Contact was not updated',
+              type: 'warning',
+              position: 'top-right',
+              dismissible: true,
+              duration: 5000
+            })
+            console.error(e)
+          })
+      } catch (error) {
+        console.debug(`ContactService ${error}`)
+      }
+      $('#overlay').fadeOut(300)
+    },
     deleteContact: function (id) {
       $('#overlay').fadeIn(300)
       try {
         axios
           .delete(
-            this.$apiUrl + this.$apiRoute + 'contacts/delete/' + id
+            this.$apiUrl + this.$apiRoute + 'contacts/delete/' + id,
+            this.config
           )
           .then((response) => {
             document.getElementById(id).remove()
