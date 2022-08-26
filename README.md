@@ -12,10 +12,12 @@ https://github.com/dctfor/demo_crud
 
 ## ToDo
 
+* Make this readme better
 * Add internal process when creating a contact, add the card dynamically to save 1 Api Call instead of reloading the contact page
 * Add webWorkers for optimizing the UI Loading
 * Add a dynamic search bar/tool & proper filtering
-* Add better cache process
+* Add better cache process (server)
+* Add profile pic upload-edit functionality
 * Add "Download Profile in PDF" button + functionality
 
 ## Common Build Setup / Run Steps
