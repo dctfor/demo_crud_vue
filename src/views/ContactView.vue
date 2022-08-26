@@ -58,7 +58,6 @@
 
 <script>
 import axios from 'axios'
-import $ from 'jquery'
 
 export default {
   name: 'ContactView',
@@ -81,13 +80,13 @@ export default {
     try {
       await axios
         .get(
-          this.$apiUrl + '/api/v1/vue/contacts/' + this.contactId
+          this.$apiUrl + this.$apiRoute + 'contacts/' + this.contactId
         )
         .then((response) => {
           this.contact = response.data
           axios
             .get(
-              this.$apiUrl + '/api/v1/vue/departments/' +
+              this.$apiUrl + this.$apiRoute + 'departments/' +
                 this.contact.departmentId
             )
             .then((response) => {

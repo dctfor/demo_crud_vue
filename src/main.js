@@ -6,6 +6,7 @@ import router from './router'
 
 Vue.config.productionTip = false
 Vue.prototype.$apiUrl = 'https://api.christianlopez.mx'
+Vue.prototype.$apiRoute = '/api/v1/vue/'
 
 /* eslint-disable no-new */
 new Vue({

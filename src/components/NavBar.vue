@@ -27,8 +27,6 @@
 </template>
 
 <script>
-import $ from 'jquery'
-
 export default {
   name: 'NavBar',
   computed: {

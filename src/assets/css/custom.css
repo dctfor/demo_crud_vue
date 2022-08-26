@@ -1,64 +1,118 @@
-html, body {
-  background-image: url( './../img/photon.svg' ) !important;
+html,
+body {
+  background-image: url("./../img/photon.svg") !important;
   background-size: cover;
 }
 #app {
-    font-family: "Avenir", Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    height: 100vw;
-    /* margin-top: 60px; */
-  }
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  height: 100vw;
+  /* margin-top: 60px; */
+}
+
+.profile-img {
+  width: 100%;
+  margin: auto;
+  max-width: 230px;
+  border-radius: 50%;
+  filter: grayscale(100%);
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+p {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.a-s-box {
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  border: gray 0.1rem solid;
+  opacity: 0.7;
+}
+
+.a-s-box:hover div img {
+  filter: grayscale(0%);
+}
+
+.a-s-box:hover {
+  box-shadow: 0 0rem 1rem rgba(0, 0, 0, 1) !important;
+  opacity: 1;
+}
+
+.a-s-box:hover * {
+  color: black;
+}
+
+.a-s-box:hover::after {
+  box-shadow: 10rem 1rem 4rem rgba(0, 0, 0, 1) !important;
+}
+
+.modal {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.mc-info {
+  box-shadow: 0 0 5rem rgb(52, 214, 255);
+}
+
+.mc-warning {
+  box-shadow: 0 0 5rem rgb(255, 167, 52);
+}
+
+.c_f_btn,
+c_f_btn_delete {
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  border: white transparent;
+}
+
+.c_f_btn:hover,
+.c_f_btn:active {
+  background-color: rgba(0, 174, 255, 0.5);
+}
+
+.c_f_btn_delete:hover,
+.c_f_btn_delete:active {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+
+.input-group > .input-group-prepend {
+  flex: 0 0 25%;
+}
+.input-group .input-group-text {
+  width: 100%;
+}
+
+.c-card-col{
+  margin-bottom: 1.5rem!important;;
+}
+
+@media (max-width: 600px) {
   
-  .profile-img {
+  .input-group > .input-group-prepend {
+    flex: 0 0 35%;
+  }
+  .input-group .input-group-text {
     width: 100%;
-    margin: auto;
-    max-width: 230px;
-    border-radius: 50%;
-    filter: grayscale(100%);
-    -webkit-transition: all 0.3s ease-out;
-    -moz-transition: all 0.3s ease-out;
-    -o-transition: all 0.3s ease-out;
-    transition: all 0.3s ease-out;
   }
-  
-  p {
-    text-align: justify;
-    text-justify: inter-word;
+  .profile-img, .card-img-top {
+    display: none;
   }
-
-  .a-s-box {
-    -webkit-transition: all 0.3s ease-out;
-    -moz-transition: all 0.3s ease-out;
-    -o-transition: all 0.3s ease-out;
-    transition: all 0.3s ease-out;
-    border: gray 0.1rem solid;
-    opacity: 0.7;
+  .c-card-col{
+    margin-bottom: 0px !important;
   }
-  
-  .a-s-box:hover div img{ 
-    filter: grayscale(0%);
+  .p-4 {
+    padding-top: 0px !important;
   }
-
-  .a-s-box:hover {
-    box-shadow: 0 0rem 3rem rgba(0, 0, 0, 1) !important;
-    opacity: 1;
-  }
-  
-  .a-s-box:hover * {
-    color: black;
-  }
-  
-  .a-s-box:hover::after {
-    box-shadow: 10rem 1rem 4rem rgba(0, 0, 0, 1) !important;
-  }
-  
-  .modal {
-    background: rgba(0,0,0,0.5);
-  }
-  
-  .modal-content {
-    box-shadow: 0 0 5rem rgb(52, 214, 255);
-  }
+}

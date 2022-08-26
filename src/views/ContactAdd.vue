@@ -101,7 +101,6 @@
 
 <script>
 import axios from 'axios'
-import $ from 'jquery'
 
 export default {
   name: 'AddContact',
@@ -122,7 +121,7 @@ export default {
     $('#overlay').fadeIn(300)
     try {
       await axios
-        .get(this.$apiUrl + '/api/v1/vue/departments')
+        .get(this.$apiUrl + this.$apiRoute + 'departments')
         .then((response) => {
           this.departments = response.data
         })
@@ -141,7 +140,7 @@ export default {
         console.error(this.contact)
         axios
           .post(
-            this.$apiUrl + '/api/v1/vue/contacts/add',
+            this.$apiUrl + this.$apiRoute + 'contacts/add',
             this.contact
           )
           .then((response) => {

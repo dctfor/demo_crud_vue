@@ -101,7 +101,6 @@
 
 <script>
 import axios from 'axios'
-import $ from 'jquery'
 
 export default {
   name: 'ContactView',
@@ -125,13 +124,13 @@ export default {
     try {
       await axios
         .get(
-          this.$apiUrl + '/api/v1/vue/contacts/' + this.contactId
+          this.$apiUrl + this.$apiRoute + 'contacts/' + this.contactId
         )
         .then((response) => {
           this.contact = response.data
           axios
             .get(
-              this.$apiUrl + '/api/v1/vue/departments/' +
+              this.$apiUrl + this.$apiRoute + 'departments/' +
                 this.contact.departmentId
             )
             .then((response) => {
@@ -147,7 +146,7 @@ export default {
         })
 
       axios
-        .get(this.$apiUrl + '/api/v1/vue/departments')
+        .get(this.$apiUrl + this.$apiRoute + 'departments')
         .then((response) => {
           this.departments = response.data
         })
@@ -167,7 +166,7 @@ export default {
         console.error(this.contact)
         axios
           .post(
-            this.$apiUrl + '/api/v1/vue/contacts/update',
+            this.$apiUrl + this.$apiRoute + 'contacts/update',
             this.contact
           )
           .then((response) => {
