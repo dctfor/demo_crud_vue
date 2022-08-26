@@ -164,7 +164,7 @@ export default {
         mobile: '',
         company: '',
         title: '',
-        departmentId: ''
+        department: ''
       },
       department: '',
       config: {
@@ -233,19 +233,6 @@ export default {
           )
           .then((response) => {
             this.contact = response.data
-            axios
-              .get(
-                this.$apiUrl + this.$apiRoute + 'departments/' +
-                  this.contact.departmentId, this.config
-              )
-              .then((response) => {
-                console.log(response.data.name)
-                miDepartment.value = response.data.name
-              })
-              .catch((e) => {
-                console.error(e)
-                $('#overlay').fadeOut(300)
-              })
           })
           .catch((e) => {
             console.error(e)
@@ -258,6 +245,7 @@ export default {
         miMobile.value = this.contact.mobile
         miCompany.value = this.contact.company
         miTitle.value = this.contact.title
+        miDepartment.value = this.contact.department
         $('#overlay').fadeOut(300)
         $('#checkModal').modal('show')
       } catch (error) {

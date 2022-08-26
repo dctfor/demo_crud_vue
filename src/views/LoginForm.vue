@@ -47,6 +47,13 @@ export default {
   mounted () {
     $('#overlay').fadeOut(100)
     localStorage['a_t'] = null
+    this.$toast.open({
+      message: 'Welcome to my demo!',
+      type: 'info',
+      position: 'top',
+      dismissible: true,
+      duration: 5000
+    })
   },
   methods: {
     async login () {
@@ -54,13 +61,11 @@ export default {
         $('#overlay').fadeIn(300)
         await axios
           .post(
-            // this.$apiUrl + '/auth',
             this.$apiUrl + '/auth',
             this.user
           )
           .then((response) => {
             localStorage['a_t'] = response.data.access_token
-            console.log('jwt: '+localStorage['a_t'])
           })
           .catch((e) => {
             console.error(e)
@@ -81,8 +86,6 @@ export default {
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 * {
   box-sizing: border-box;
