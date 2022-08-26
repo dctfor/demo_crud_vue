@@ -3,7 +3,7 @@
     <div class="container-fluid p-4" v-if="contacts.length > 0">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
         <div
-          :id="contact.id"
+          :id="'cardid_'+contact.id"
           class="col-xl-3 col-sm-6 col-xs-12 mb-4 c-card-col"
           v-for="(contact, idx) of contacts"
           :key="idx"
@@ -23,7 +23,7 @@
                 type="hidden"
                 class="form-control"
                 name="contactid"
-                id="contactid"
+                :id="'contactid_'+contact.id"
                 placeholder=""
                 value=""
               />
@@ -55,7 +55,7 @@
       </div>
     </div>
 
-    <MainModals @submitEdit="submitUpdate" />
+    <MainModals @submitEdit="submitUpdate" @submitDelete="deleteContact" @submitNew="createContact"/>
 
   </div>
 </template>
@@ -86,6 +86,9 @@ export default {
         }
       }
     }
+  },
+  created () {
+    $('.modal-backdrop.show').fadeOut()
   },
   beforeMount: async function () {
     $('#overlay').fadeIn(300)
@@ -120,25 +123,9 @@ export default {
   methods: {
     /* eslint-disable */
     confirmDelete: function (contact) {
+      this.contact = contact
       $('#del_me').html(contact.name + ' with phone number ' + contact.mobile)
-      var spn = document.getElementById('count')
-      var btn = document.getElementById('btnCounter')
-      btn.setAttribute('disabled', '')
       $('#deleteModal').modal('show')
-      var count = 3
-      var timer = null
-      // TODO: handle properly the queue for this count down
-      ( function countDown () {
-        spn.textContent = 'in ' + count
-        if (count !== 0) {
-          timer = setTimeout(countDown, 1000)
-          count--
-        } else {
-          spn.textContent = ''
-          btn.removeAttribute('disabled')
-        }
-      }()) 
-      /* eslint-enable */
     },
     viewContact: async function (id) {
       $('#overlay').fadeIn(300)
@@ -167,16 +154,54 @@ export default {
         $('#overlay').fadeOut(300)
       }
     },
+    createContact: async function () {
+      $('#overlay').fadeIn(300)
+      try {
+        this.contact.name = document.getElementById('modalAddName').value
+        this.contact.email = document.getElementById('modalAddEmail').value
+        this.contact.mobile = document.getElementById('modalAddMobile').value
+        this.contact.company = document.getElementById('modalAddCompany').value
+        this.contact.title = document.getElementById('modalAddTitle').value
+        this.contact.departmentId = document.getElementById('modalAddDepartment').value
+        axios
+          .post(
+            this.$apiUrl + this.$apiRoute + 'contacts/add',
+            this.contact, 
+            this.config
+          )
+          .then((response) => {
+            this.$toast.open({
+              message: 'Contact ' + this.contact.name + ' created',
+              type: 'success',
+              position: 'top-right',
+              dismissible: true,
+              duration: 5000
+            })
+            this.$router.push('/contacts')
+          })
+          .catch((e) => {
+            console.error(e)
+            this.$toast.open({
+              message: 'Contact ' + this.contact.name + ' was not created',
+              type: 'warning',
+              position: 'top-right',
+              dismissible: true,
+              duration: 5000
+            })
+          })
+      } catch (error) {
+        console.debug(`ContactService ${error}`)
+      }
+      $('#overlay').fadeOut(300)
+    },
     editContact: async function (id) {
       $('#overlay').fadeIn(300)
       try {
-        // let miDepartment = document.getElementById('modalEditDepartment')
         await axios
           .get(
             this.$apiUrl + this.$apiRoute + 'contacts/' + id, this.config
           )
           .then((response) => {
-            console.log(response.data)
             this.contact = response.data
           })
           .catch((e) => {
@@ -188,7 +213,6 @@ export default {
         document.getElementById('modalEditMobile').value = this.contact.mobile
         document.getElementById('modalEditCompany').value = this.contact.company
         document.getElementById('modalEditTitle').value = this.contact.title
-        console.log(this.contact.deparmentId)
         document.getElementById('modalEditDepartment').value = this.contact.departmentId
         $('#overlay').fadeOut(300)
         $('#editModal').modal('show')
@@ -236,18 +260,35 @@ export default {
       }
       $('#overlay').fadeOut(300)
     },
-    deleteContact: function (id) {
+    deleteContact: function () {
       $('#overlay').fadeIn(300)
       try {
         axios
           .delete(
-            this.$apiUrl + this.$apiRoute + 'contacts/delete/' + id,
+            this.$apiUrl + this.$apiRoute + 'contacts/delete/' + this.contact.id,
             this.config
           )
           .then((response) => {
-            document.getElementById(id).remove()
+            $('#deleteModal').modal('hide')
+            $('#cardid_'+this.contact.id).animate({
+                    width: "toggle"
+                });
+            this.$toast.open({
+              message: 'The contact was deleted',
+              type: 'warning',
+              position: 'top-right',
+              dismissible: true,
+              duration: 5000
+            })
           })
           .catch((e) => {
+            this.$toast.open({
+              message: 'We couldn\'t delete the contact',
+              type: 'warning',
+              position: 'top-right',
+              dismissible: true,
+              duration: 5000
+            })
             console.error(e)
           })
       } catch (error) {

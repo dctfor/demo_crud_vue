@@ -37,6 +37,9 @@ export default {
       }
     }
   },
+  created () {
+    $('.modal-backdrop.show').fadeOut()
+  },
   beforeMount () {
     let init = 1000
     setTimeout(function () {

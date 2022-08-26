@@ -7,13 +7,13 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Contacts<span class="sr-only">(current)</span></a>
+          <button class="nav-link btn btn-info" href="#" data-toggle="modal" data-target="#addModal">New Contact<span class="sr-only">(current)</span></button>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" data-toggle="modal" data-target="#aboutModal">About This</a>
+          <button class="nav-link btn btn-primary" href="#" data-toggle="modal" data-target="#aboutModal">About This</button>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" data-toggle="modal" data-target="#pricingModal">Pricing</a>
+          <button class="nav-link btn btn-primary" href="#" data-toggle="modal" data-target="#pricingModal">Pricing</button>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled" href="#">Disabled</a>

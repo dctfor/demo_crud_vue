@@ -9,7 +9,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  height: 100vw;
+  /* height: 100vw; */
   /* margin-top: 60px; */
 }
 
@@ -69,8 +69,16 @@ p {
 
 }
 
+.mc-light {
+  box-shadow: 0 0 2rem rgba(255, 255, 255, 0.719);
+}
+
 .mc-warning {
   box-shadow: 0 0 2rem rgb(255, 167, 52);
+}
+
+.nav-item{
+  margin: 0 5px;
 }
 
 .c_f_btn,
