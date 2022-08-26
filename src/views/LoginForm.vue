@@ -79,12 +79,6 @@ export default {
         $('#overlay').fadeOut(300)
       }
       return this.$router.push('/contacts')
-    },
-    deletethis () {
-      var e = window.event
-      var grand = e.target.parentNode.parentNode
-      grand.style.animation = 'toast .5s ease-out forwards'
-      setTimeout(() => { grand.remove() }, 500)
     }
   }
 }
