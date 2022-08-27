@@ -1,62 +1,42 @@
 <template>
   <div>
     <div class="container-fluid p-4" v-if="contacts.length > 0">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-        <div
-          :id="'cardid_'+contact.id"
-          class="col-xl-3 col-sm-6 col-xs-12 mb-4 c-card-col"
-          v-for="(contact, idx) of contacts"
-          :key="idx"
-        >
+      <div id="card_container" class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+        <div :id="'cardid_'+contact.id" class="col-xl-3 col-sm-6 col-xs-12 mb-4 c-card-col" v-for="(contact, idx) of contacts" :key="idx">
           <div class="card h-100 list-group-item-light a-s-box shadow">
             <div class="card-img-top pt-3">
-              <img
-                src="@/assets/img/profile.webp"
-                class="profile-img"
-                height="100%"
-                width="100%"
-                :alt='"Profile foto of " + contact.name'
-              />
+              <img src="@/assets/img/profile.webp" class="profile-img" height="100%" width="100%" :alt='"Profile foto of " + contact.name'/>
             </div>
             <div class="card-body">
-              <input
-                type="hidden"
-                class="form-control"
-                name="contactid"
-                :id="'contactid_'+contact.id"
-                placeholder=""
-                value=""
-              />
+              <input type="hidden" class="form-control" name="contactid" :id="'contactid_'+contact.id" placeholder="" value=""/>
               <ul class="list-group">
                 <li class="list-group-item text-wrap">
-                  <b>Name:</b> <span class="fw-bold">{{ contact.name }}</span>
+                  <b>Name:</b> <span class="fw-bold" :id="'spanName_'+contact.id">{{ contact.name }}</span>
                 </li>
                 <li class="list-group-item text-wrap">
-                  <b>Email:</b> <span class="fw-bold">{{ contact.email }}</span>
+                  <b>Email:</b> <span class="fw-bold" :id="'spanEmail_'+contact.id">{{ contact.email }}</span>
                 </li>
                 <li class="list-group-item text-wrap">
-                  <b>Mobile:</b> <span class="fw-bold">{{ contact.mobile }}</span>
+                  <b>Mobile:</b> <span class="fw-bold" :id="'spanMobile_'+contact.id">{{ contact.mobile }}</span>
                 </li>
               </ul>
             </div>
             <div class="card-footer d-flex overflow-hidden" role="group">
-            <button class="btn btn-theme w-100 c_f_btn"
-                    type="button" @click="viewContact(contact.id)">Check
-            </button>
-            <button class="btn btn-theme w-100 c_f_btn"
-                    type="button" @click="editContact(contact.id)">Edit
-            </button>
-            <button class="btn btn-theme w-100 c_f_btn_delete"
-                    type="button" @click="confirmDelete(contact)">Delete
-            </button>
+              <button class="btn btn-theme w-100 c_f_btn"
+                      type="button" @click="viewContact(contact.id)">Check
+              </button>
+              <button class="btn btn-theme w-100 c_f_btn"
+                      type="button" @click="editContact(contact.id)">Edit
+              </button>
+              <button class="btn btn-theme w-100 c_f_btn_delete"
+                      type="button" @click="confirmDelete(contact)">Delete
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
-
     <MainModals @submitEdit="submitUpdate" @submitDelete="deleteContact" @submitNew="createContact"/>
-
   </div>
 </template>
 
@@ -104,6 +84,13 @@ export default {
           console.error(e.response.data.error)
           console.error('access token: ' + localStorage['a_t'])
           localStorage['a_t'] = null
+          setInterval(this.$toast.open({
+              message: 'Notice: Your session was closed by the system',
+              type: 'info',
+              position: 'top',
+              dismissible: true,
+              duration: 5000
+            }), 1000)
           return this.$router.push('/login')
         })
       axios
@@ -203,17 +190,17 @@ export default {
           )
           .then((response) => {
             this.contact = response.data
+            document.getElementById('modalEditName').value = this.contact.name
+            document.getElementById('modalEditEmail').value = this.contact.email
+            document.getElementById('modalEditMobile').value = this.contact.mobile
+            document.getElementById('modalEditCompany').value = this.contact.company
+            document.getElementById('modalEditTitle').value = this.contact.title
+            document.getElementById('modalEditDepartment').value = this.contact.departmentId
           })
           .catch((e) => {
             console.error(e)
             $('#overlay').fadeOut(300)
           })
-        document.getElementById('modalEditName').value = this.contact.name
-        document.getElementById('modalEditEmail').value = this.contact.email
-        document.getElementById('modalEditMobile').value = this.contact.mobile
-        document.getElementById('modalEditCompany').value = this.contact.company
-        document.getElementById('modalEditTitle').value = this.contact.title
-        document.getElementById('modalEditDepartment').value = this.contact.departmentId
         $('#overlay').fadeOut(300)
         $('#editModal').modal('show')
       } catch (error) {
@@ -237,6 +224,9 @@ export default {
             this.config
           )
           .then((response) => {
+            document.getElementById('spanName_'+this.contact.id).textContent = this.contact.name
+            document.getElementById('spanEmail_'+this.contact.id).textContent = this.contact.email
+            document.getElementById('spanMobile_'+this.contact.id).textContent = this.contact.mobile
             this.$toast.open({
               message: 'Contact ' + this.contact.name + ' updated',
               type: 'success',
