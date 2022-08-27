@@ -85,12 +85,12 @@ export default {
           console.error('access token: ' + localStorage['a_t'])
           localStorage['a_t'] = null
           setInterval(this.$toast.open({
-              message: 'Notice: Your session was closed by the system',
-              type: 'info',
-              position: 'top',
-              dismissible: true,
-              duration: 5000
-            }), 1000)
+            message: 'Notice: Your session was closed by the system',
+            type: 'info',
+            position: 'top',
+            dismissible: true,
+            duration: 5000
+          }), 1000)
           return this.$router.push('/login')
         })
       axios
