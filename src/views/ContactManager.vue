@@ -2,51 +2,21 @@
   <div>
     <div class="container-fluid p-4" v-if="contacts.length > 0">
       <div id="card_container" class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-        <div :id="'cardid_'+contact.id" class="col-xl-3 col-sm-6 col-xs-12 mb-4 c-card-col" v-for="(contact, idx) of contacts" :key="idx">
-          <div class="card h-100 list-group-item-light a-s-box shadow">
-            <div class="card-img-top pt-3">
-              <img src="@/assets/img/profile.webp" class="profile-img" height="100%" width="100%" :alt='"Profile foto of " + contact.name'/>
-            </div>
-            <div class="card-body">
-              <input type="hidden" class="form-control" name="contactid" :id="'contactid_'+contact.id" placeholder="" value=""/>
-              <ul class="list-group">
-                <li class="list-group-item text-wrap">
-                  <b>Name:</b> <span class="fw-bold" :id="'spanName_'+contact.id">{{ contact.name }}</span>
-                </li>
-                <li class="list-group-item text-wrap">
-                  <b>Email:</b> <span class="fw-bold" :id="'spanEmail_'+contact.id">{{ contact.email }}</span>
-                </li>
-                <li class="list-group-item text-wrap">
-                  <b>Mobile:</b> <span class="fw-bold" :id="'spanMobile_'+contact.id">{{ contact.mobile }}</span>
-                </li>
-              </ul>
-            </div>
-            <div class="card-footer d-flex overflow-hidden" role="group">
-              <button class="btn btn-theme w-100 c_f_btn"
-                      type="button" @click="viewContact(contact.id)">Check
-              </button>
-              <button class="btn btn-theme w-100 c_f_btn"
-                      type="button" @click="editContact(contact.id)">Edit
-              </button>
-              <button class="btn btn-theme w-100 c_f_btn_delete"
-                      type="button" @click="confirmDelete(contact)">Delete
-              </button>
-            </div>
-          </div>
-        </div>
+        <ContactCard v-for="(contact, idx) of contacts" :key="idx" :contact="contact" @signalViewContact="viewContact" @signalEditContact="editContact" @signalConfirmDelete="confirmDelete"/>
       </div>
     </div>
-    <MainModals @submitEdit="submitUpdate" @submitDelete="deleteContact" @submitNew="createContact"/>
+    <MainModals @signalEdit="submitUpdate" @signalDelete="deleteContact" @signalNew="createContact"/>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import MainModals from '@/components/MainModals'
+import ContactCard from '@/components/ContactCard'
 
 export default {
   name: 'ContactManager',
-  components: {MainModals},
+  components: {MainModals, ContactCard},
   data: function () {
     return {
       contacts: [],

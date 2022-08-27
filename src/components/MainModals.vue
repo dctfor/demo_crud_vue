@@ -102,7 +102,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal" @click="submitNew()" >Save</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" @click="signalNew()" >Save</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
                 </div>
@@ -162,7 +162,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal" @click="submitEdit()" >Update</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" @click="signalEdit()" >Update</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
                 </div>
@@ -237,7 +237,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary w-100" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger w-100" id="btnCounter" @click="submitDelete()">Delete <span id="count"></span></button>
+                    <button type="button" class="btn btn-danger w-100" id="btnCounter" @click="signalDelete()">Delete <span id="count"></span></button>
                 </div>
                 </div>
             </div>
@@ -273,15 +273,15 @@ export default {
       })
   },
   methods: {
-    submitNew () {
-      this.$emit('submitNew')
+    signalNew () {
+      this.$emit('signalNew')
     },
-    submitEdit () {
-      this.$emit('submitEdit')
+    signalEdit () {
+      this.$emit('signalEdit')
     },
-    submitDelete () {
+    signalDelete () {
       if (window.confirm('Do you really want to delete this?')) {
-        this.$emit('submitDelete')
+        this.$emit('signalDelete')
       }
     }
   }
