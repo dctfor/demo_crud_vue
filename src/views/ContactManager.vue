@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container-fluid p-4" v-if="contacts.length > 0">
-      <div id="card_container" class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+      <div id="card_container" class="row row-cols-1 row-cols-sm-2 row-cols-md-4" ref="container">
         <ContactCard v-for="(contact, idx) of contacts" :key="idx" :contact="contact" @signalViewContact="viewContact" @signalEditContact="editContact" @signalConfirmDelete="confirmDelete"/>
       </div>
     </div>
@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import axios from 'axios'
 import MainModals from '@/components/MainModals'
 import ContactCard from '@/components/ContactCard'
@@ -19,6 +20,7 @@ export default {
   components: {MainModals, ContactCard},
   data: function () {
     return {
+      bErr: false,
       contacts: [],
       contact: {
         name: '',
@@ -48,33 +50,37 @@ export default {
         .then((response) => {
           this.contacts = response.data
           this.contacts.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
-          $('#overlay').fadeOut(300)
         })
         .catch((e) => {
+          this.bErr = true
           console.error(e.response.data.error)
-          console.error('access token: ' + localStorage['a_t'])
           localStorage['a_t'] = null
-          setInterval(this.$toast.open({
-            message: 'Notice: Your session was closed by the system',
-            type: 'info',
-            position: 'top',
-            dismissible: true,
-            duration: 5000
-          }), 1000)
-          return this.$router.push('/login')
         })
       axios
         .get(this.$apiUrl + this.$apiRoute + 'departments', this.config)
         .then((response) => {
           this.departments = response.data
+          $('#overlay').fadeOut(300)
         })
         .catch((e) => {
+          this.bErr = true
           console.error(e.response.data.error)
-          return this.$router.push('/login')
         })
     } catch (error) {
-      console.error(`ContactService ${error}`)
-      $('#overlay').fadeOut(300)
+      this.bErr = true
+      console.error(`ContactManagerService: Notice - ${error}`)
+    }
+    if (this.bErr) {
+      this.$toast.open({
+        message: 'Notice: Your session was closed by the system',
+        type: 'info',
+        position: 'top',
+        dismissible: true,
+        duration: 3000
+      })
+      setInterval(
+        window.location.href = 'https://crud.christianlopez.mx'
+        , 3000)
     }
   },
   methods: {
@@ -127,6 +133,8 @@ export default {
             this.config
           )
           .then((response) => {
+            this.contact.id = response.data.id
+            console.log(this.contact.id)
             this.$toast.open({
               message: 'Contact ' + this.contact.name + ' created',
               type: 'success',
@@ -134,7 +142,15 @@ export default {
               dismissible: true,
               duration: 5000
             })
-            this.$router.push('/contacts')
+            var contactCard = Vue.extend(ContactCard)
+            var instance = new contactCard({
+              propsData: {
+                contact: this.contact
+              }
+            })
+            console.log(instance)
+            instance.$mount()
+            this.$refs.container.appendChild(instance.$el)
           })
           .catch((e) => {
             console.error(e)
@@ -235,7 +251,7 @@ export default {
                 });
             this.$toast.open({
               message: 'The contact was deleted',
-              type: 'warning',
+              type: 'success',
               position: 'top-right',
               dismissible: true,
               duration: 5000

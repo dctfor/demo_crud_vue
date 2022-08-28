@@ -269,7 +269,6 @@ export default {
       })
       .catch((e) => {
         console.error(e.response.data.error)
-        return this.$router.push('/login')
       })
   },
   methods: {
