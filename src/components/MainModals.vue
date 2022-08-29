@@ -63,7 +63,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text">Name</div>
                     </div>
-                    <input type="text" class="form-control" id="modalAddName" placeholder=" Name">
+                    <input type="text" class="form-control" id="modalAddName" placeholder=" Name" required>
                     </div>
                     <div class="input-group mb-2 mr-sm-2">
                     <div class="input-group-prepend">
@@ -93,7 +93,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">Department</div>
                         </div>
-                        <select class="form-control" name="modalAddDepartment" id="modalAddDepartment"  aria-label="modalAddDepartment">
+                        <select class="form-control" name="modalAddDepartment" id="modalAddDepartment"  aria-label="modalAddDepartment" required>
                             <option value="">Select Department</option>
                             <option :value="department.id" v-for="department of departments" :key="department.id" >
                                 {{ department.name }}

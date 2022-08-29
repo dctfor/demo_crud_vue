@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <button class="nav-link btn btn-info" href="#" data-toggle="modal" data-target="#addModal">New Contact<span class="sr-only">(current)</span></button>
+          <button class="nav-link btn btn-info" href="#" data-toggle="modal" data-target="#addModal" @click="clear">New Contact<span class="sr-only">(current)</span></button>
         </li>
         <li class="nav-item">
           <button class="nav-link btn btn-primary" href="#" data-toggle="modal" data-target="#aboutModal">About This</button>
@@ -41,6 +41,14 @@ export default {
         localStorage['a_t'] = null
         router.push('/login')
       }).fadeIn(1000)
+    },
+    clear: function () {
+      document.getElementById('modalAddName').value = ''
+      document.getElementById('modalAddEmail').value = ''
+      document.getElementById('modalAddMobile').value = ''
+      document.getElementById('modalAddCompany').value = ''
+      document.getElementById('modalAddTitle').value = ''
+      document.getElementById('modalAddDepartment').value = ''
     }
   }
 }
