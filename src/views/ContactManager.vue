@@ -76,11 +76,11 @@ export default {
         type: 'info',
         position: 'top',
         dismissible: true,
-        duration: 3000
+        duration: 5000
       })
       setInterval(
-        window.location.href = 'https://crud.christianlopez.mx'
-        , 3000)
+        window.location.href = '/'
+        , 7000)
     }
   },
   methods: {
