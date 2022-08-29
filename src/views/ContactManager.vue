@@ -2,7 +2,7 @@
   <div>
     <div class="container-fluid p-4" v-if="contacts.length > 0">
       <div id="card_container" class="row row-cols-1 row-cols-sm-2 row-cols-md-4" ref="container">
-        <ContactCard v-for="(contact, idx) of contacts" :key="idx" :contact="contact" @signalViewContact="viewContact" @signalEditContact="editContact" @signalConfirmDelete="confirmDelete"/>
+        <ContactCard v-for="(contact, idx) of contacts" :key="idx" :contact="contact" />
       </div>
     </div>
     <MainModals @signalEdit="submitUpdate" @signalDelete="deleteContact" @signalNew="createContact"/>
@@ -203,6 +203,7 @@ export default {
         this.contact.company = document.getElementById('modalEditCompany').value
         this.contact.title = document.getElementById('modalEditTitle').value
         this.contact.departmentId = document.getElementById('modalEditDepartment').value
+        this.contact.id = document.getElementById('id2Edit').value
         await axios
           .post(
             this.$apiUrl + this.$apiRoute + 'contacts/update',
@@ -238,17 +239,17 @@ export default {
     },
     deleteContact: function () {
       $('#overlay').fadeIn(300)
+      var id = document.getElementById('id2Del').value
       try {
         axios
           .delete(
-            this.$apiUrl + this.$apiRoute + 'contacts/delete/' + this.contact.id,
+            this.$apiUrl + this.$apiRoute + 'contacts/delete/' + id,
             this.config
           )
           .then((response) => {
+            console.log(response)
             $('#deleteModal').modal('hide')
-            $('#cardid_'+this.contact.id).animate({
-                    width: "toggle"
-                });
+            $('#cardid_'+ id).remove();
             this.$toast.open({
               message: 'The contact was deleted',
               type: 'success',

@@ -119,6 +119,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <input type="hidden" class="form-control" name="contactid" id="id2Edit" />
                     <div class="input-group mb-2 mr-sm-2">
                     <div class="input-group-prepend">
                         <div class="input-group-text">Name</div>
@@ -232,6 +233,7 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <input type="hidden" class="form-control" name="contactid" id="id2Del" />
                 <div class="modal-body">
                     You're about to delete the record of <span id="del_me"></span>
                 </div>
