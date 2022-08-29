@@ -52,59 +52,59 @@
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content mc-success">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addModalLabel">Add</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group mb-2 mr-sm-2">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">Name</div>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addModalLabel">Add</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <input type="text" class="form-control" id="modalAddName" placeholder=" Name" required>
-                    </div>
-                    <div class="input-group mb-2 mr-sm-2">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">Email</div>
-                    </div>
-                    <input type="text" class="form-control" id="modalAddEmail" placeholder=" Email">
-                    </div>
-                    <div class="input-group mb-2 mr-sm-2">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">Mobile</div>
-                    </div>
-                    <input type="text" class="form-control" id="modalAddMobile" placeholder=" Mobile">
-                    </div>
-                    <div class="input-group mb-2 mr-sm-2">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">Company</div>
-                    </div>
-                    <input type="text" class="form-control" id="modalAddCompany" placeholder=" Company">
-                    </div>
-                    <div class="input-group mb-2 mr-sm-2">
+                    <div class="modal-body">
+                        <div class="input-group mb-2 mr-sm-2">
                         <div class="input-group-prepend">
-                            <div class="input-group-text">Title</div>
+                            <div class="input-group-text">Name</div>
                         </div>
-                    <input type="text" class="form-control" id="modalAddTitle" placeholder=" Title">
-                    </div>
-                    <div class="input-group mb-2 mr-sm-2">
+                        <input type="text" class="form-control" id="modalAddName" placeholder=" Name">
+                        </div>
+                        <div class="input-group mb-2 mr-sm-2">
                         <div class="input-group-prepend">
-                            <div class="input-group-text">Department</div>
+                            <div class="input-group-text">Email</div>
                         </div>
-                        <select class="form-control" name="modalAddDepartment" id="modalAddDepartment"  aria-label="modalAddDepartment" required>
-                            <option value="">Select Department</option>
-                            <option :value="department.id" v-for="department of departments" :key="department.id" >
-                                {{ department.name }}
-                            </option>
-                        </select>
+                        <input type="text" class="form-control" id="modalAddEmail" placeholder=" Email">
+                        </div>
+                        <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Mobile</div>
+                        </div>
+                        <input type="text" class="form-control" id="modalAddMobile" placeholder=" Mobile">
+                        </div>
+                        <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Company</div>
+                        </div>
+                        <input type="text" class="form-control" id="modalAddCompany" placeholder=" Company">
+                        </div>
+                        <div class="input-group mb-2 mr-sm-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Title</div>
+                            </div>
+                        <input type="text" class="form-control" id="modalAddTitle" placeholder=" Title">
+                        </div>
+                        <div class="input-group mb-2 mr-sm-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Department</div>
+                            </div>
+                            <select class="form-control" name="modalAddDepartment" id="modalAddDepartment"  aria-label="modalAddDepartment">
+                                <option value="">Select Department</option>
+                                <option :value="department.id" v-for="department of departments" :key="department.id" >
+                                    {{ department.name }}
+                                </option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal" @click="signalNew()" >Save</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" @click="signalNew()" >Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>

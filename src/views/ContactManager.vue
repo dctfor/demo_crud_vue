@@ -90,35 +90,9 @@ export default {
       $('#del_me').html(contact.name + ' with phone number ' + contact.mobile)
       $('#deleteModal').modal('show')
     },
-    viewContact: async function (id) {
-      $('#overlay').fadeIn(300)
-      try {
-        await axios
-          .get(
-            this.$apiUrl + this.$apiRoute + 'contacts/' + id, this.config
-          )
-          .then((response) => {
-            this.contact = response.data
-          })
-          .catch((e) => {
-            console.error(e)
-            $('#overlay').fadeOut(300)
-          })
-        document.getElementById('modalInfoName').value = this.contact.name
-        document.getElementById('modalInfoEmail').value = this.contact.email
-        document.getElementById('modalInfoMobile').value = this.contact.mobile
-        document.getElementById('modalInfoCompany').value = this.contact.company
-        document.getElementById('modalInfoTitle').value = this.contact.title
-        document.getElementById('modalInfoDepartment').value = this.contact.department
-        $('#overlay').fadeOut(300)
-        $('#checkModal').modal('show')
-      } catch (error) {
-        console.debug(`ContactService ${error}`)
-        $('#overlay').fadeOut(300)
-      }
-    },
     createContact: async function () {
       $('#overlay').fadeIn(300)
+      this.bErr = false
       try {
         this.contact.name = document.getElementById('modalAddName').value
         this.contact.email = document.getElementById('modalAddEmail').value
@@ -126,6 +100,28 @@ export default {
         this.contact.company = document.getElementById('modalAddCompany').value
         this.contact.title = document.getElementById('modalAddTitle').value
         this.contact.departmentId = document.getElementById('modalAddDepartment').value
+        if (document.getElementById('modalAddName').value.trim() == ''){
+          this.$toast.open({
+            message: 'Please, write a name',
+            type: 'warning',
+            position: 'top-right',
+            dismissible: true,
+            duration: 5000
+          })
+          $('#overlay').fadeOut(300)
+          return 
+        }
+        if (document.getElementById('modalAddDepartment').value == ''){
+          this.$toast.open({
+            message: 'Please, choose a department',
+            type: 'warning',
+            position: 'top-right',
+            dismissible: true,
+            duration: 5000
+          })
+          $('#overlay').fadeOut(300)
+          return 
+        }
         axios
           .post(
             this.$apiUrl + this.$apiRoute + 'contacts/add',
@@ -148,12 +144,13 @@ export default {
                 contact: this.contact
               }
             })
-            console.log(instance)
             instance.$mount()
             this.$refs.container.appendChild(instance.$el)
+            $('#addModal').modal('hide')
           })
           .catch((e) => {
             console.error(e)
+            this.bErr = true
             this.$toast.open({
               message: 'Contact ' + this.contact.name + ' was not created',
               type: 'warning',
@@ -163,39 +160,27 @@ export default {
             })
           })
       } catch (error) {
+        this.bErr = true
         console.debug(`ContactService ${error}`)
       }
+      if (this.bErr) {
+        this.$toast.open({
+          message: 'Notice: Your session was closed by the system',
+          type: 'info',
+          position: 'top',
+          dismissible: true,
+          duration: 5000
+        })
+        setInterval(
+          window.location.href = '/'
+          , 7000)
+      }
+
       $('#overlay').fadeOut(300)
-    },
-    editContact: async function (id) {
-      $('#overlay').fadeIn(300)
-      try {
-        await axios
-          .get(
-            this.$apiUrl + this.$apiRoute + 'contacts/' + id, this.config
-          )
-          .then((response) => {
-            this.contact = response.data
-            document.getElementById('modalEditName').value = this.contact.name
-            document.getElementById('modalEditEmail').value = this.contact.email
-            document.getElementById('modalEditMobile').value = this.contact.mobile
-            document.getElementById('modalEditCompany').value = this.contact.company
-            document.getElementById('modalEditTitle').value = this.contact.title
-            document.getElementById('modalEditDepartment').value = this.contact.departmentId
-          })
-          .catch((e) => {
-            console.error(e)
-            $('#overlay').fadeOut(300)
-          })
-        $('#overlay').fadeOut(300)
-        $('#editModal').modal('show')
-      } catch (error) {
-        console.debug(`ContactService ${error}`)
-        $('#overlay').fadeOut(300)
-      }
     },
     submitUpdate: async function () {
       $('#overlay').fadeIn(300)
+      this.bErr = false
       try {
         this.contact.name = document.getElementById('modalEditName').value
         this.contact.email = document.getElementById('modalEditEmail').value
@@ -230,15 +215,30 @@ export default {
               dismissible: true,
               duration: 5000
             })
+            this.bErr = true
             console.error(e)
           })
       } catch (error) {
+        this.bErr = true
         console.debug(`ContactService ${error}`)
+      }
+      if (this.bErr) {
+        this.$toast.open({
+          message: 'Notice: Your session was closed by the system',
+          type: 'info',
+          position: 'top',
+          dismissible: true,
+          duration: 5000
+        })
+        setInterval(
+          window.location.href = '/'
+          , 7000)
       }
       $('#overlay').fadeOut(300)
     },
     deleteContact: function () {
       $('#overlay').fadeIn(300)
+      this.bErr = false
       var id = document.getElementById('id2Del').value
       try {
         axios
@@ -266,10 +266,24 @@ export default {
               dismissible: true,
               duration: 5000
             })
+            this.bErr = true
             console.error(e)
           })
       } catch (error) {
         console.debug(`ContactService ${error}`)
+        this.bErr = true
+      }
+      if (this.bErr) {
+        this.$toast.open({
+          message: 'Notice: Your session was closed by the system',
+          type: 'info',
+          position: 'top',
+          dismissible: true,
+          duration: 5000
+        })
+        setInterval(
+          window.location.href = '/'
+          , 7000)
       }
       $('#overlay').fadeOut(300)
     }
