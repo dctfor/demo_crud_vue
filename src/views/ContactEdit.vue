@@ -4,9 +4,10 @@
       <div class="col-12">
         <p class="h3 text-primary fw-bold">Edit Contact</p>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-          nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat.
         </p>
         <form @submit.prevent="submitUpdate()">
           <div class="row col-lg-6 col-md-8 col-sm-12">
@@ -100,87 +101,84 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 
 export default {
-  name: 'ContactView',
+  name: "ContactView",
   data: function () {
     return {
       contactId: this.$route.params.contactId,
       contact: {
-        name: '',
-        email: '',
-        mobile: '',
-        company: '',
-        title: '',
-        departmentId: ''
+        name: "",
+        email: "",
+        mobile: "",
+        company: "",
+        title: "",
+        departmentId: "",
       },
-      departmentId: '',
-      departments: []
-    }
+      departmentId: "",
+      departments: [],
+    };
   },
   mounted: async function () {
-    $('#overlay').fadeIn(300)
+    $("#overlay").fadeIn(300);
     try {
       await axios
-        .get(
-          this.$apiUrl + this.$apiRoute + 'contacts/' + this.contactId
-        )
+        .get(this.$apiUrl + this.$apiRoute + "contacts/" + this.contactId)
         .then((response) => {
-          this.contact = response.data
+          this.contact = response.data;
           axios
             .get(
-              this.$apiUrl + this.$apiRoute + 'departments/' +
+              this.$apiUrl +
+                this.$apiRoute +
+                "departments/" +
                 this.contact.departmentId
             )
             .then((response) => {
-              this.departmentId = response.data.id
+              this.departmentId = response.data.id;
             })
             .catch((e) => {
-              console.error(e)
-            })
+              console.error(e);
+            });
         })
         .catch((e) => {
-          console.error(e.response.data.error)
-          return this.$router.push('/login')
-        })
+          console.error(e.response.data.error);
+          return this.$router.push("/login");
+        });
 
       axios
-        .get(this.$apiUrl + this.$apiRoute + 'departments')
+        .get(this.$apiUrl + this.$apiRoute + "departments")
         .then((response) => {
-          this.departments = response.data
+          this.departments = response.data;
         })
         .catch((e) => {
-          console.error(e.response.data.error)
-          return this.$router.push('/login')
-        })
+          console.error(e.response.data.error);
+          return this.$router.push("/login");
+        });
     } catch (error) {
-      console.debug(`ContactService ${error}`)
+      console.debug(`ContactService ${error}`);
     }
-    $('#overlay').fadeOut(300)
+    $("#overlay").fadeOut(300);
   },
   methods: {
     submitUpdate: function () {
-      $('#overlay').fadeIn(300)
+      $("#overlay").fadeIn(300);
       try {
-        console.error(this.contact)
+        console.error(this.contact);
         axios
-          .post(
-            this.$apiUrl + this.$apiRoute + 'contacts/update',
-            this.contact
-          )
+          .post(this.$apiUrl + this.$apiRoute + "contacts/update", this.contact)
           .then((response) => {
-            return this.$router.push('/')
+            return this.$router.push("/");
           })
           .catch((e) => {
-            console.error(e)
-            return this.$router.push('/contacts/edit/' + this.contactId)
-          })
+            console.error(e);
+            return this.$router.push("/contacts/edit/" + this.contactId);
+          });
       } catch (error) {
-        console.debug(`ContactService ${error}`)
+        console.debug(`ContactService ${error}`);
       }
-      $('#overlay').fadeOut(300)
-    }
-  }
-}
+      $("#overlay").fadeOut(300);
+    },
+  },
+};
 </script>

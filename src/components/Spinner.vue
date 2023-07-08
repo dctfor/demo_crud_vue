@@ -82,17 +82,17 @@
 
 <script>
 export default {
-  name: 'Spinner',
+  name: "Spinner",
   computed: {
-    isNotLogin () {
-      return this.$route.name !== 'LoginForm'
+    isNotLogin() {
+      return this.$route.name !== "LoginForm";
+    },
+  },
+  beforeCreate() {
+    if (this.$router.currentRoute.path === "/") {
     }
   },
-  beforeCreate () {
-    if (this.$router.currentRoute.path === '/') {
-    }
-  }
-}
+};
 </script>
 
 <style lang="">

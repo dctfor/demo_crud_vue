@@ -4,9 +4,10 @@
       <div class="col-12">
         <p class="h3 text-primary fw-bold">Add Contact</p>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-          nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat.
         </p>
         <form @submit.prevent="submitCreate()">
           <div class="row col-lg-6 col-md-8 col-sm-12">
@@ -100,61 +101,58 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 
 export default {
-  name: 'AddContact',
+  name: "AddContact",
   data: function () {
     return {
       contact: {
-        name: '',
-        email: '',
-        mobile: '',
-        company: '',
-        title: '',
-        departmentId: ''
+        name: "",
+        email: "",
+        mobile: "",
+        company: "",
+        title: "",
+        departmentId: "",
       },
-      departments: []
-    }
+      departments: [],
+    };
   },
   mounted: async function () {
-    $('#overlay').fadeIn(300)
+    $("#overlay").fadeIn(300);
     try {
       await axios
-        .get(this.$apiUrl + this.$apiRoute + 'departments')
+        .get(this.$apiUrl + this.$apiRoute + "departments")
         .then((response) => {
-          this.departments = response.data
+          this.departments = response.data;
         })
         .catch((e) => {
-          console.error(e)
-        })
+          console.error(e);
+        });
     } catch (error) {
-      console.debug(`ContactService ${error}`)
+      console.debug(`ContactService ${error}`);
     }
-    $('#overlay').fadeOut(300)
+    $("#overlay").fadeOut(300);
   },
   methods: {
     submitCreate: function () {
-      $('#overlay').fadeIn(300)
+      $("#overlay").fadeIn(300);
       try {
-        console.error(this.contact)
+        console.error(this.contact);
         axios
-          .post(
-            this.$apiUrl + this.$apiRoute + 'contacts/add',
-            this.contact
-          )
+          .post(this.$apiUrl + this.$apiRoute + "contacts/add", this.contact)
           .then((response) => {
-            return this.$router.push('/')
+            return this.$router.push("/");
           })
           .catch((e) => {
-            console.error(e)
-            return this.$router.push('/contacts/add')
-          })
+            console.error(e);
+            return this.$router.push("/contacts/add");
+          });
       } catch (error) {
-        console.debug(`ContactService ${error}`)
+        console.debug(`ContactService ${error}`);
       }
-      $('#overlay').fadeOut(300)
-    }
-  }
-}
+      $("#overlay").fadeOut(300);
+    },
+  },
+};
 </script>

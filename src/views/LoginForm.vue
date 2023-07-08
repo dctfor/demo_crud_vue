@@ -1,111 +1,126 @@
 <template id="login-form">
-    <div class="container">
-        <div class="login-wrapper">
-            <div class="login-left">
-            <img height="100" src="https://img.icons8.com/external-kmg-design-outline-color-kmg-design/344/external-profile-ui-essential-kmg-design-outline-color-kmg-design.png">
-            </div>
-            <form class="login-right" @submit.prevent>
-            <div class="h2">Login</div>
-            <div class="form-group">
-                <input v-model="user.username" type="text" id="username" placeholder="Username" required>
-                <label for="username">Username</label>
-            </div>
-            <div class="form-group">
-                <input v-model="user.password" type="password" id="password" placeholder="Password" required>
-                <label for="Password">Password</label>
-            </div>
-            <div class="button-area_lf">
-                <button class="btn_lf btn_lf-primary pull-right" @click="login()" >Login</button>
-            </div>
-            </form>
+  <div class="container">
+    <div class="login-wrapper">
+      <div class="login-left">
+        <img
+          height="100"
+          src="https://img.icons8.com/external-kmg-design-outline-color-kmg-design/344/external-profile-ui-essential-kmg-design-outline-color-kmg-design.png"
+        />
+      </div>
+      <form class="login-right" @submit.prevent>
+        <div class="h2">Login</div>
+        <div class="form-group">
+          <input
+            v-model="user.username"
+            type="text"
+            id="username"
+            placeholder="Username"
+            required
+          />
+          <label for="username">Username</label>
         </div>
+        <div class="form-group">
+          <input
+            v-model="user.password"
+            type="password"
+            id="password"
+            placeholder="Password"
+            required
+          />
+          <label for="Password">Password</label>
+        </div>
+        <div class="button-area_lf">
+          <button class="btn_lf btn_lf-primary pull-right" @click="login()">
+            Login
+          </button>
+        </div>
+      </form>
     </div>
+  </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 
 export default {
-  name: 'LoginForm',
-  template: '#login-form',
+  name: "LoginForm",
+  template: "#login-form",
   data: function () {
     return {
       rememberMe: false,
       user: {
-        username: '',
-        password: ''
-      }
-    }
+        username: "",
+        password: "",
+      },
+    };
   },
-  created () {
-    $('.modal-backdrop.show').fadeOut()
+  created() {
+    $(".modal-backdrop.show").fadeOut();
   },
-  beforeMount () {
-    let init = 1000
+  beforeMount() {
+    let init = 1000;
     setTimeout(function () {
-      document.querySelector('.login-wrapper').classList.toggle('open')
-      init = 300
-    }, init)
+      document.querySelector(".login-wrapper").classList.toggle("open");
+      init = 300;
+    }, init);
   },
-  mounted () {
-    $('#overlay').fadeOut(100)
-    localStorage['a_t'] = null
+  mounted() {
+    $("#overlay").fadeOut(100);
+    localStorage["a_t"] = null;
     this.$toast.open({
-      message: 'Welcome to my demo!',
-      type: 'info',
-      position: 'top',
+      message: "Welcome to my demo!",
+      type: "info",
+      position: "top",
       dismissible: true,
-      duration: 5000
-    })
+      duration: 5000,
+    });
   },
   methods: {
-    async login () {
+    async login() {
       try {
-        $('#overlay').fadeIn(300)
+        $("#overlay").fadeIn(300);
         await axios
-          .post(
-            this.$apiUrl + '/auth',
-            this.user
-          )
+          .post(this.$apiUrl + "/auth", this.user)
           .then((response) => {
-            localStorage['a_t'] = response.data.access_token
+            localStorage["a_t"] = response.data.access_token;
           })
           .catch((e) => {
-            console.error(e)
-            $('#overlay').fadeOut(300)
-          })
+            console.error(e);
+            $("#overlay").fadeOut(300);
+          });
       } catch (error) {
-        console.debug(`Error ? ${error}`)
-        $('#overlay').fadeOut(300)
+        console.debug(`Error ? ${error}`);
+        $("#overlay").fadeOut(300);
       }
-      return this.$router.push('/contacts')
-    }
-  }
-}
+      return this.$router.push("/contacts");
+    },
+  },
+};
 </script>
 <style>
 * {
   box-sizing: border-box;
 }
 
-body, html, #app, .container{
-    height: 100%;
+body,
+html,
+#app,
+.container {
+  height: 100%;
 }
 
 .container {
-        display: flex;
-    /* align-content: center; */
-    /* width: 100%; */
-    align-items: center;
-    /* margin: 0 auto; */
-    height: 100%;
-    margin-bottom: 100px;
+  display: flex;
+  /* align-content: center; */
+  /* width: 100%; */
+  align-items: center;
+  /* margin: 0 auto; */
+  height: 100%;
+  margin-bottom: 100px;
 }
 
 input {
   font-family: inherit;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   border: 0;
   font-size: 16px;
   color: #000;
@@ -147,7 +162,7 @@ label {
 
 input:placeholder-shown + label {
   opacity: 0;
-  color: rgba(0,0,0,0);
+  color: rgba(0, 0, 0, 0);
   -webkit-transform: translateY(15px);
   transform: translateY(15px);
 }
@@ -216,7 +231,6 @@ input:placeholder-shown + label {
 }
 
 @media (max-width: 600px) {
-
   body {
     background-size: contain;
   }
@@ -224,7 +238,6 @@ input:placeholder-shown + label {
   .login-right {
     width: 100% !important;
   }
-
 }
 
 .login-right {
@@ -262,7 +275,6 @@ input[type="checkbox"] {
   height: 22px;
   position: relative;
   width: 22px;
-  -webkit-appearance: none;
   transition: all 180ms linear;
 }
 
@@ -311,8 +323,6 @@ input[type="checkbox"]:checked:after {
 
 .btn_lf {
   font-family: inherit;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   background-color: transparent;
   border: none;
   border-radius: 2px;

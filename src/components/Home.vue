@@ -6,22 +6,20 @@
 
 <script>
 export default {
-  name: 'Main',
-  data  () {
+  name: "Main",
+  data() {
     return {
-      mensaje: ''
-    }
+      mensaje: "",
+    };
   },
   methods: {
-    getMensaje  () {
-    }
+    getMensaje() {},
   },
-  created  () {
-    this.getMensaje()
-  }
-}
+  created() {
+    this.getMensaje();
+  },
+};
 </script>
 
 <style lang='css' scoped>
-
 </style>

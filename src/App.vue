@@ -7,12 +7,12 @@
 </template>
 
 <script>
-import NavBar from '@/components/NavBar'
-import Spinner from '@/components/Spinner'
-import '@/assets/css/custom.css'
+import NavBar from "@/components/NavBar";
+import Spinner from "@/components/Spinner";
+import "@/assets/css/custom.css";
 
 export default {
-  name: 'App',
-  components: { NavBar, Spinner }
-}
+  name: "App",
+  components: { NavBar, Spinner },
+};
 </script>
